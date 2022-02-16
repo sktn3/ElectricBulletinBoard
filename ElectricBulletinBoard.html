@@ -22,8 +22,8 @@ body{
 
   animation-name: MarqueeScrollHorizontal;
   animation-timing-function: linear;
-  /* animation-duration: 10s; */ /* 1������̂ɂ����鎞�� */
-  animation-iteration-count: infinite; /* �J��Ԃ��� */
+  /* animation-duration: 10s; */ /* 1周するのにかかる時間 */
+  animation-iteration-count: infinite; /* 繰り返す回数 */
 
   font-size: 99vh;
 }
@@ -48,7 +48,7 @@ body{
 
   <script type="text/javascript">
 function init(){
-  /* 1������̂ɂ����鎞�� */
+  /* 1周するのにかかる時間 */
   document.getElementById("message").style.animationDuration = getMessageLen()+"s";
 }
 function getMessageLen(){
@@ -59,6 +59,6 @@ function getMessageLen(){
 
 </head>
 <body onload="init()">
-  <span id="message">�e�X�g���b�Z�[�W������Ă����܂��`</span>
+  <span id="message">テストメッセージが流れていきます～</span>
 </body>
 </html>
