@@ -1,0 +1,63 @@
+<html>
+<head>
+  <style>
+
+body{
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+}
+
+#message {
+  display: inline-block;
+  white-space: nowrap;
+  margin: -10vh;
+  border: 1px solid red;
+
+  top: 0px;
+  left: 0px;
+
+  animation-name: MarqueeScrollHorizontal;
+  animation-timing-function: linear;
+  /* animation-duration: 10s; */ /* 1周するのにかかる時間 */
+  animation-iteration-count: infinite; /* 繰り返す回数 */
+
+  font-size: 99vh;
+}
+@keyframes MarqueeScrollHorizontal{
+  from { transform: translateX(0);}
+  to { transform: translateX(-100%);}
+}
+
+@media screen and (orientation:portrait) and (max-width: 1680px){
+  body{
+    transform:rotate(90deg);
+  }
+  #message{
+    margin: -5vh;
+    font-size: 92vw;
+  }
+
+}
+
+
+  </style>
+
+  <script type="text/javascript">
+function init(){
+  /* 1周するのにかかる時間 */
+  document.getElementById("message").style.animationDuration = getMessageLen()+"s";
+}
+function getMessageLen(){
+  let msg = document.getElementById("message").innerHTML;
+  return msg.length;
+}
+  </script>
+
+</head>
+<body onload="init()">
+  <span id="message">テストメッセージが流れていきます～</span>
+</body>
+</html>
