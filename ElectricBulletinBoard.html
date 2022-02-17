@@ -14,20 +14,14 @@ body{
 #message {
   display: inline-block;
   white-space: nowrap;
-  /*
-  border: 1px solid red;
-  */
-
-  top: 0px;
-  left: 0px;
 
   animation-name: MarqueeScrollHorizontal;
   animation-timing-function: linear;
-  animation-iteration-count: infinite; /* 繰り返す回数 */
+  animation-iteration-count: infinite;
 
-  font-size: 90vh;
-  line-height: 90vh;
-  margin: 5vh 0px;
+  font-size: 50vh;
+  line-height: 70vh;
+  margin: 15vh 0px 0px 0px
 
 }
 @keyframes MarqueeScrollHorizontal{
@@ -40,9 +34,9 @@ body{
     transform:rotate(90deg);
   }
   #message{
-    font-size: 90vw;
-    line-height: 90vw;
-    margin: 5vh 0px;
+    font-size: 50vw;
+    line-height: 70vw;
+    margin: 20vw 0px 0px 0px
   }
 
 }
