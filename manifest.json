@@ -1,0 +1,10 @@
+{
+    "short_name": "ElectricBulletinBoard",
+    "name": "ElectricBulletinBoard app",
+    "display": "fullscreen",
+    "background_color": "#fff",
+    "theme_color": "#fff",
+    "orientation": "portrait",
+    "start_url": "ElectricBulletinBoard.html",
+    "scope": "/"
+}
