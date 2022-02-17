@@ -1,10 +1,13 @@
 # ElectricBulletinBoard
 Electric Bulletin Board 電光掲示板のように文字が流れるページを作る。
 
-適当に作ったロゴ　![ロゴ](https://sktn3.github.io/ElectricBulletinBoard/icon.jpg "ロゴ")
+適当に作ったロゴ
+　![ロゴ](https://sktn3.github.io/ElectricBulletinBoard/icon.jpg "ロゴ")
 
+動作イメージ
 ![イメージ](https://github.com/sktn3/myPhoto/blob/master/ElectricBulletinBoard_image.gif?raw=true "イメージ")
 
+作成途中だけど。。。
 [DEMO](https://sktn3.github.io/ElectricBulletinBoard/ElectricBulletinBoard.html)
 
 
