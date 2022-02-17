@@ -43,6 +43,45 @@ body{
   to { transform: translateX(-100%);}
 }
 
+
+#setting-bg{
+  display: block;
+  position: absolute;
+
+  top: 0px;
+  left: 0px;
+  width: 60vw;
+  height: 60vh;
+  margin: 20vh 20vw;
+
+  background-color: black;
+  opacity: 0.5;  
+}
+#setting{
+  top: 0px;
+  left: 0px;
+  width: 90%;
+  height: 90%;
+  margin: 30px; 
+
+  color: black;
+  font-size: 5vh;
+
+  border: 2px solid gray;
+}
+
+#setting > input {
+  font-size: 5vh;
+  width: 100%;
+}
+#setting > select {
+  font-size: 5vh;
+  width: 100%;
+}
+#setting > buttan {
+  font-size: 10vh;
+}
+
 @media screen and (orientation:portrait) and (max-width: 1680px){
   body{
     transform:rotate(90deg);
@@ -55,11 +94,11 @@ body{
 
 }
 
-
   </style>
 
   <script type="text/javascript">
 function init(){
+  console.log("> init()");
   /* 1周するのにかかる時間 */
   document.getElementById("message").style.animationDuration = getMessageLen()+"s";
 }
@@ -67,10 +106,36 @@ function getMessageLen(){
   let msg = document.getElementById("message").innerHTML;
   return msg.length;
 }
+function closeSetting(){
+  console.log("> closeSetting()");
+  document.getElementById("setting-bg").style.display="none";
+  event.stopPropagation()
+}
+function openSetting(){
+  console.log("> openSetting()");
+  const e = document.getElementById("setting-bg");
+  if(e.style.display == "none"){
+    document.getElementById("setting-bg").style.display="block";
+  }else if(e.style.display == ""){
+    document.getElementById("setting-bg").style.display="block";
+  }
+  event.stopPropagation()
+}
   </script>
 
 </head>
-<body onload="init()">
+<body onload="init()" onclick="openSetting()">
   <span id="message">テストメッセージが流れていきます～</span>
+  <div id="setting-bg"><div id="setting">
+    <input type="text" value="テストメッセージが流れていきます～">
+    <br>
+    <select id="speed" name="speed">
+      <option value="1">default</option>
+      <option value="2">fast</option>
+      <option value="0.5">slow</option>
+    </select>
+    <br>
+    <button type="button" onclick="closeSetting()">ＯＫ</button>
+  </></>
 </body>
 </html>
