@@ -135,10 +135,10 @@ function init(){
 
   const msg_i = document.getElementById("message-input");
   msg_i.value = t;
-  msg_i.addEventListener("keydown", startChangingMessage, false);
   msg_i.addEventListener("focus", startChangingMessage, false);
+  msg_i.focus();
   msg_i.addEventListener("blur",  stopChangingMessage, false);
-  window.setTimeout(function(){msg_i.focus()},1000);
+  msg_i.addEventListener("keydown", startChangingMessage, false);
 
   
   // スクロール禁止
