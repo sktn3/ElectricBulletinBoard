@@ -4,14 +4,14 @@ Electric Bulletin Board 電光掲示板のように文字が流れるページ�
 適当に作ったロゴ<br>
 　![ロゴ](https://sktn3.github.io/ElectricBulletinBoard/icon.jpg "ロゴ")
 
-動作イメージ<br>
+Gifイメージ<br>
 ![イメージ](https://github.com/sktn3/myPhoto/blob/master/ElectricBulletinBoard_image.gif?raw=true "イメージ")
 
 作成途中だけど。。。<br>
 [DEMO](https://sktn3.github.io/ElectricBulletinBoard/ElectricBulletinBoard.html)
 
 
-# できること（またほとんどない）
+# できること（まだほとんどない）
 
 - デフォルトの文字が、デフォルトの速度で流れるだけ（↑のイメージ画像から変更できない）
 - iPhoneで「ホーム画面に登録」すると全画面表示できる
