@@ -106,15 +106,22 @@ body{
   </style>
 
   <script type="text/javascript">
+/**************************************/
 function init(){
   console.log("> init()");
   /* 1周するのにかかる時間 */
   document.getElementById("message").style.animationDuration = getMessageLen()+"s";
+
+  document.getElementById("message-input").focus();
 }
+
+/**************************************/
 function getMessageLen(){
   let msg = document.getElementById("message").innerHTML;
   return msg.length;
 }
+
+/**************************************/
 function closeSetting(){
   console.log("> closeSetting()");
   document.getElementById("setting-bg").style.display="none";
@@ -123,20 +130,43 @@ function closeSetting(){
 function openSetting(){
   console.log("> openSetting()");
   const e = document.getElementById("setting-bg");
-  if(e.style.display == "none"){
+  if(e.style.display == "none" || e.style.display == ""){
     document.getElementById("setting-bg").style.display="block";
-  }else if(e.style.display == ""){
-    document.getElementById("setting-bg").style.display="block";
+    document.getElementById("message-input").focus();
   }
   event.stopPropagation()
 }
+
+/**************************************/
+/*
+var MessageTimer;
+function startChangingMessage(){
+  console.log("> startChangingMessage()");
+  stopChangingMessage();
+  MessageTimer = window.setInterval(changeMessage, 400);
+}
+function stopChangingMessage(){
+  console.log("> stopChangingMessage()");
+  try{
+      window.clearInterval(MessageTimer);
+  }catch(e){}
+}
+function changeMessage(){
+  console.log("> changeMessage()");
+}
+*/
+
+/**************************************/
+
   </script>
 
 </head>
 <body onload="init()" onclick="openSetting()">
-  <span id="message">テストメッセージが流れていきます～</span>
+  <span id="message"
+        onfocus="startChangingMessage()"
+        onblur="stopChangingMessage()">テストメッセージが流れていきます～</span>
   <div id="setting-bg"><div id="setting">
-    <input type="text" value="（工事中）テストメッセージが流れていきます～">
+    <input id="message-input" type="text" value="（工事中）テストメッセージが流れていきます～">
     <br>
     <select id="speed" name="speed">
       <option value="1">default speed</option>
