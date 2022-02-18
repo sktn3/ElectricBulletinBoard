@@ -107,18 +107,38 @@ body{
 
   <script type="text/javascript">
 /**************************************/
+var MessageText;
+
 function init(){
   console.log("> init()");
-  /* 1周するのにかかる時間 */
-  document.getElementById("message").style.animationDuration = getMessageLen()+"s";
+  setSpeed( getMessageLen() );
 
-  document.getElementById("message-input").focus();
+  let t = "テストメッセージが流れていきます～"; //localStrageに変更予定
+  setMessageText(t);
+
+  const msg_i = document.getElementById("message-input");
+  msg_i.value = t;
+  msg_i.addEventListener("keydown", startChangingMessage, false);
+  msg_i.addEventListener("focus", startChangingMessage, false);
+  msg_i.addEventListener("blur",  stopChangingMessage, false);
+  window.setTimeout(function(){msg_i.focus()},1000);
 }
 
 /**************************************/
+function setMessageText(text){
+  const msg = document.getElementById("message");
+  msg.innerHTML = text;
+  MessageText = text;
+}
 function getMessageLen(){
-  let msg = document.getElementById("message").innerHTML;
-  return msg.length;
+  const msg = document.getElementById("message");
+  return msg.innerHTML.length;
+}
+
+/**************************************/
+/* 1周するのにかかる時間 */
+function setSpeed(sec){
+  document.getElementById("message").style.animationDuration = sec+"s";
 }
 
 /**************************************/
@@ -138,23 +158,28 @@ function openSetting(){
 }
 
 /**************************************/
-/*
 var MessageTimer;
 function startChangingMessage(){
-  console.log("> startChangingMessage()");
+  //console.log("> startChangingMessage()");
   stopChangingMessage();
-  MessageTimer = window.setInterval(changeMessage, 400);
+  MessageTimer = window.setInterval(changeMessage, 600);
 }
 function stopChangingMessage(){
-  console.log("> stopChangingMessage()");
+  //console.log("> stopChangingMessage()");
   try{
       window.clearInterval(MessageTimer);
   }catch(e){}
 }
 function changeMessage(){
-  console.log("> changeMessage()");
+  const msg_i = document.getElementById("message-input");
+  let v = msg_i.value;
+  if(v != MessageText){
+    console.log("> changeMessage() ditected change");
+    setMessageText(v);
+  }else{
+    console.log("> changeMessage() not change");
+  }
 }
-*/
 
 /**************************************/
 
@@ -162,11 +187,9 @@ function changeMessage(){
 
 </head>
 <body onload="init()" onclick="openSetting()">
-  <span id="message"
-        onfocus="startChangingMessage()"
-        onblur="stopChangingMessage()">テストメッセージが流れていきます～</span>
+  <span id="message">テストメッセージが流れていきます～</span>
   <div id="setting-bg"><div id="setting">
-    <input id="message-input" type="text" value="（工事中）テストメッセージが流れていきます～">
+    <input id="message-input" type="text" value="">
     <br>
     <select id="speed" name="speed">
       <option value="1">default speed</option>
