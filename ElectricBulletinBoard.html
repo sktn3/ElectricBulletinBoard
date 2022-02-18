@@ -84,6 +84,18 @@ body{
   font-size: 5vh;
 }
 
+input[type="text"]{
+    outline: none;
+    border: 4px solid white;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+input[type="text"]:focus {
+  box-shadow: 0 0 15px #00ffff;
+  border: 4px solid #00ffff;
+}
+
+
 /* for smart phone */
 @media screen and (orientation:portrait) and (max-width: 1680px){
   body{
@@ -111,7 +123,6 @@ var MessageText;
 
 function init(){
   console.log("> init()");
-  setSpeed( getMessageLen() );
 
   let t = "テストメッセージが流れていきます～"; //localStrageに変更予定
   setMessageText(t);
@@ -129,13 +140,12 @@ function setMessageText(text){
   const msg = document.getElementById("message");
   msg.innerHTML = text;
   MessageText = text;
+  setSpeed( getMessageLen() );
 }
 function getMessageLen(){
   const msg = document.getElementById("message");
   return msg.innerHTML.length;
 }
-
-/**************************************/
 /* 1周するのにかかる時間 */
 function setSpeed(sec){
   document.getElementById("message").style.animationDuration = sec+"s";
@@ -198,7 +208,7 @@ function changeMessage(){
     </select>
     <br>
     <br>
-    <button type="button" onclick="closeSetting()">ＯＫ</button>
+    <button type="button" onclick="closeSetting()">GO</button>
   </></>
 </body>
 </html>
