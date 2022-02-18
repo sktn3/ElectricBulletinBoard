@@ -5,7 +5,7 @@ Electric Bulletin Board 電光掲示板のように文字が流れるページ�
 　![ロゴ](https://sktn3.github.io/ElectricBulletinBoard/icon.jpg "ロゴ")
 
 Gifイメージ<br>
-![イメージ](https://github.com/sktn3/myPhoto/blob/master/ElectricBulletinBoard_image.gif?raw=true "イメージ")
+![イメージ](https://sktn3.github.io/myPhoto/ElectricBulletinBoard_image.gif "イメージ")
 
 作成途中だけど。。。<br>
 [DEMO](https://sktn3.github.io/ElectricBulletinBoard/ElectricBulletinBoard.html)
