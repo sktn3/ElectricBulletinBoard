@@ -121,6 +121,12 @@ input[type="text"]:focus {
 /**************************************/
 var MessageText;
 
+
+// スクロールを禁止にする関数
+function disableScroll(event) {
+  event.preventDefault();
+}
+
 function init(){
   console.log("> init()");
 
@@ -133,6 +139,14 @@ function init(){
   msg_i.addEventListener("focus", startChangingMessage, false);
   msg_i.addEventListener("blur",  stopChangingMessage, false);
   window.setTimeout(function(){msg_i.focus()},1000);
+
+  
+  // スクロール禁止
+  document.getElementById('on').onclick = function() {
+    // イベントと関数を紐付け
+    document.addEventListener('touchmove', disableScroll, { passive: false });
+    document.addEventListener('mousewheel', disableScroll, { passive: false });
+  }
 }
 
 /**************************************/
