@@ -1,7 +1,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-	<title>ElectricBulletinBoard</title>
+  <title>ElectricBulletinBoard</title>
 
   <meta name="robots" content="noindex">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="ElectricBulletinBoard">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-	<link rel="apple-touch-icon-precomposed" href="./icon.jpg">
+  <link rel="apple-touch-icon-precomposed" href="./icon.jpg">
   <link rel="apple-touch-startup-image" href="./icon.jpg">
   <!-- Chrome, Firefox OS and Opera -->
   <meta name="theme-color" content="#ffffff">
@@ -27,7 +27,7 @@ body{
   margin: 0px;
   padding: 0px;
 }
-.body_rotate {
+.body_on_setting {
   /* 横向きの時は定義なし */
 }
 
@@ -102,10 +102,10 @@ body{
 }
 
 input[type="text"]{
-    outline: none;
-    border: 4px solid white;
-    -webkit-transition: all .3s;
-    transition: all .3s;
+  outline: none;
+  border: 4px solid white;
+  -webkit-transition: all .3s;
+  transition: all .3s;
 }
 input[type="text"]:focus {
   box-shadow: 0 0 15px #00ffff;
@@ -115,19 +115,26 @@ input[type="text"]:focus {
 
 /* for smart phone */
 @media screen and (orientation:portrait) and (max-width: 1680px){
-  .body_rotate {
+  .body {
     transform:rotate(90deg);
   }
+  .message_on_setting {
+    top: 0px;
+  }
+  .message {
+    top: 40vw;
+  }
   #message{
+    position: fixed;
+
     font-size: 50vw;
     line-height: 70vw;
-    margin: 20vw 0px 0px 0px
   }
   #setting-bg{
     top: 3vh;
     left: 5vw;
     width: 80vw;
-    height: 30vh;
+    height: 50vh;
   }
 
 }
@@ -145,7 +152,7 @@ function disableScroll(event) {
 }
 
 function init(){
-  console.log("> init()");
+  console.log("＞ init()");
 
   let t = "テストメッセージが流れていきます～"; //localStrageに変更予定
   setMessageText(t);
@@ -192,7 +199,7 @@ function setSpeed(sec){
 
 /**************************************/
 function closeSetting(){
-  console.log("> closeSetting()");
+  console.log("＞ closeSetting()");
 
   //横向き用
   addBodyRotate();
@@ -201,7 +208,7 @@ function closeSetting(){
   event.stopPropagation()
 }
 function openSetting(){
-  console.log("> openSetting()");
+  console.log("＞ openSetting()");
 
   //横向き用
   delBodyRotate();
@@ -215,23 +222,29 @@ function openSetting(){
 }
 function addBodyRotate(){
   const boby = document.getElementById("body");
-  body.className = "body_rotate";
+  body.className = "body";
+
+  const msg = document.getElementById("message");
+  msg.className = "message";
 }
 function delBodyRotate(){
   //横向き用
   const boby = document.getElementById("body");
   body.className = "";
+
+  const msg = document.getElementById("message");
+  msg.className = "message_on_setting";
 }
 
 /**************************************/
 var MessageTimer;
 function startChangingMessage(){
-  //console.log("> startChangingMessage()");
+  //console.log("＞ startChangingMessage()");
   stopChangingMessage();
   MessageTimer = window.setInterval(changeMessage, 600);
 }
 function stopChangingMessage(){
-  //console.log("> stopChangingMessage()");
+  //console.log("＞ stopChangingMessage()");
   try{
       window.clearInterval(MessageTimer);
   }catch(e){}
@@ -240,10 +253,10 @@ function changeMessage(){
   const msg_i = document.getElementById("message-input");
   let v = msg_i.value;
   if(v != MessageText){
-    console.log("> changeMessage() ditected change");
+    console.log("＞ changeMessage() ditected change");
     setMessageText(v);
   }else{
-    console.log("> changeMessage() not change");
+    console.log("＞ changeMessage() not change");
   }
 }
 
