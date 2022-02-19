@@ -27,6 +27,9 @@ body{
   margin: 0px;
   padding: 0px;
 }
+.body_rotate {
+  /* 横向きの時は定義なし */
+}
 
 #loading {
   position: absolute;
@@ -60,22 +63,25 @@ body{
 
 #setting-bg{
   display: block;
-  position: absolute;
+  position: fixed;
 
-  top: 0px;
-  left: 0px;
+  top: 20vh;
+  left: 20vw;
   width: 60vw;
   height: 60vh;
-  margin: 20vh 20vw;
 
+  opacity: 0.6;
+  background-color: black;
+  /*
   background-color: rgba(0,0,0, 0.5); 
+  */
 }
 #setting{
   top: 0px;
   left: 0px;
-  width: 90%;
-  height: 90%;
-  margin: 30px; 
+  width: 95%;
+  height: 95%;
+  margin: 2%; 
 
   color: black;
   font-size: 5vh;
@@ -109,7 +115,7 @@ input[type="text"]:focus {
 
 /* for smart phone */
 @media screen and (orientation:portrait) and (max-width: 1680px){
-  body{
+  .body_rotate {
     transform:rotate(90deg);
   }
   #message{
@@ -118,10 +124,10 @@ input[type="text"]:focus {
     margin: 20vw 0px 0px 0px
   }
   #setting-bg{
-    left: -20vh;
-    width: 60vh;
-    height: 80vw;
-    margin: 20vw 20vh;
+    top: 3vh;
+    left: 5vw;
+    width: 80vw;
+    height: 30vh;
   }
 
 }
@@ -155,6 +161,15 @@ function init(){
   document.addEventListener('touchmove', disableScroll, { passive: false });
   document.addEventListener('mousewheel', disableScroll, { passive: false });
 
+  hideLoading();
+}
+
+/**************************************/
+function showLoading(){
+  const ld = document.getElementById("loading");
+  ld.style.display = "block";
+}
+function hideLoading(){
   const ld = document.getElementById("loading");
   ld.style.display = "none";
 }
@@ -178,17 +193,34 @@ function setSpeed(sec){
 /**************************************/
 function closeSetting(){
   console.log("> closeSetting()");
+
+  //横向き用
+  addBodyRotate();
+
   document.getElementById("setting-bg").style.display="none";
   event.stopPropagation()
 }
 function openSetting(){
   console.log("> openSetting()");
+
+  //横向き用
+  delBodyRotate();
+
   const e = document.getElementById("setting-bg");
   if(e.style.display == "none" || e.style.display == ""){
     document.getElementById("setting-bg").style.display="block";
     document.getElementById("message-input").focus();
   }
   event.stopPropagation()
+}
+function addBodyRotate(){
+  const boby = document.getElementById("body");
+  body.className = "body_rotate";
+}
+function delBodyRotate(){
+  //横向き用
+  const boby = document.getElementById("body");
+  body.className = "";
 }
 
 /**************************************/
@@ -220,7 +252,7 @@ function changeMessage(){
   </script>
 
 </head>
-<body onload="init()" onclick="openSetting()">
+<body id="body" onload="init()" onclick="openSetting()">
   <div id="loading"></div>
   <span id="message">テストメッセージが流れていきます～</span>
   <div id="setting-bg"><div id="setting">
@@ -233,7 +265,7 @@ function changeMessage(){
     </select>
     <br>
     <br>
-    <button type="button" onclick="closeSetting()">GO</button>
+    <button type="button" onclick="closeSetting()">OK</button>
   </></>
 </body>
 </html>
