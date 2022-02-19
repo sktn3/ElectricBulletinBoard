@@ -26,6 +26,8 @@ body{
   height: 100vh;
   margin: 0px;
   padding: 0px;
+
+  font-family: "cursive","sans-serif";
 }
 .body_on_setting {
   /* 横向きの時は定義なし */
@@ -54,6 +56,24 @@ body{
   line-height: 70vh;
   margin: 15vh 0px 0px 0px
 
+}
+
+/*** style_default ***/
+.body1_style_default {
+  background-color: white;
+}
+.message1_style_default {
+  color: black;
+  background-color: white;
+}
+
+/*** style_Inversion ***/
+.body1_style_Inversion {
+  background-color: black;
+}
+.message1_style_Inversion {
+  color: white;
+  background-color: black;
 }
 @keyframes MarqueeScrollHorizontal{
   from { transform: translateX(0);}
@@ -115,13 +135,13 @@ input[type="text"]:focus {
 
 /* for smart phone */
 @media screen and (orientation:portrait) and (max-width: 1680px){
-  .body {
+  .body90 {
     transform:rotate(90deg);
   }
-  .message_on_setting {
+  .message2_on_setting {
     top: 0px;
   }
-  .message {
+  .message2_non_setting {
     top: 40vw;
   }
   #message{
@@ -144,6 +164,8 @@ input[type="text"]:focus {
   <script type="text/javascript">
 /**************************************/
 var MessageText;
+var MessageSpeed;
+var MessageStyle;
 
 
 // スクロールを禁止にする関数
@@ -154,21 +176,69 @@ function disableScroll(event) {
 function init(){
   console.log("＞ init()");
 
-  let t = "テストメッセージが流れていきます～"; //localStrageに変更予定
-  setMessageText(t);
+  MessageText = "テストメッセージが流れていきます～"; //localStrageに変更予定
+  setMessageText(MessageText);
 
   const msg_i = document.getElementById("message-input");
-  msg_i.value = t;
+  msg_i.value = MessageText;
   msg_i.addEventListener("focus", startChangingMessage, false);
   msg_i.focus();
   msg_i.addEventListener("blur",  stopChangingMessage, false);
   msg_i.addEventListener("keydown", startChangingMessage, false);
+
+  MessageSpeed = 1; // locasStrageに変更予定
+  setMessageSpeed(MessageSpeed);
+
+  MessageStyle = "style_default"; // locasStrageに変更予定
+  setMessageStyle(MessageStyle);
 
   // スクロール禁止
   document.addEventListener('touchmove', disableScroll, { passive: false });
   document.addEventListener('mousewheel', disableScroll, { passive: false });
 
   hideLoading();
+}
+
+/**************************************/
+function setMessageSpeed(num){
+  console.log("＞ setMessageSpeed()");
+  MessageSpeed = num;
+  const msg = document.getElementById("message");
+  /* 1周するのにかかる時間 */
+  msg.style.animationDuration = parseInt(num*getMessageLen())+"s";
+}
+function changeMessageSpeed(obj){
+  const idx = obj.selectedIndex;
+  const value = obj.options[idx].value; // 値
+  //const text  = obj.options[idx].text;  // 表示テキスト
+  const s = parseFloat(value);
+  console.log("＞ changeMessageSpeed() "+ s);
+  setMessageSpeed( s );
+}
+
+/**************************************/
+function setMessageStyle(name){
+  console.log("＞ setMessageStyle()");
+
+  const msg = document.getElementById("message");
+  msg.className = msg.className.replace(/message1_[^\s]+/,"message1_"+name);
+
+  const body = document.getElementById("body");
+  console.log("body(1): "+ body.className);
+  if(body.className == ""){
+    body.className = "body1_"+name;
+  }else{
+    body.className = body.className.replace(/body1_[^\s]+/,"body1_"+name);
+  }
+  console.log("body(2): "+ body.className);
+}
+function changeMessageStyle(obj){
+  console.log("＞ changeMessageStyle()");
+  const idx = obj.selectedIndex;
+  const value = obj.options[idx].value; // 値
+  //const text  = obj.options[idx].text;  // 表示テキスト
+  console.log("e.value "+value);
+  setMessageStyle(value);
 }
 
 /**************************************/
@@ -186,15 +256,11 @@ function setMessageText(text){
   const msg = document.getElementById("message");
   msg.innerHTML = text;
   MessageText = text;
-  setSpeed( getMessageLen() );
+  setMessageSpeed();
 }
 function getMessageLen(){
   const msg = document.getElementById("message");
   return msg.innerHTML.length;
-}
-/* 1周するのにかかる時間 */
-function setSpeed(sec){
-  document.getElementById("message").style.animationDuration = sec+"s";
 }
 
 /**************************************/
@@ -222,18 +288,42 @@ function openSetting(){
 }
 function addBodyRotate(){
   const boby = document.getElementById("body");
-  body.className = "body";
+  if( body.className == "" ){
+    body.className = "body90";
+  }else{
+    body.className += " body90";
+  }
 
   const msg = document.getElementById("message");
-  msg.className = "message";
+  try{
+    if(msg.className == ""){
+      msg.className = "message2_non_setting";
+    }else{
+      msg.className = msg.className.replace(/message2_on_setting/,"message2_non_setting");
+    }
+  }catch(e){
+    msg.className += " message2_non_setting";
+  }
 }
 function delBodyRotate(){
   //横向き用
   const boby = document.getElementById("body");
-  body.className = "";
+  if( body.className == "body90" ){
+    body.className = "";
+  }else{
+    body.className = body.className.replace(/body90/,"");
+  }
 
   const msg = document.getElementById("message");
-  msg.className = "message_on_setting";
+  try{
+    if(msg.className == ""){
+      msg.className = "message2_on_setting";
+    }else{
+      msg.className = msg.className.replace(/message2_non_setting/,"message2_on_setting");
+    }
+  }catch(e){
+    msg.className += " message2_on_setting";
+  }
 }
 
 /**************************************/
@@ -265,18 +355,22 @@ function changeMessage(){
   </script>
 
 </head>
-<body id="body" onload="init()" onclick="openSetting()">
+<body id="body" class="body1_style_default" onload="init()" onclick="openSetting()">
   <div id="loading"></div>
-  <span id="message">テストメッセージが流れていきます～</span>
+  <span id="message" class="message1_style_default message2_non_setting">テストメッセージが流れていきます～</span>
   <div id="setting-bg"><div id="setting">
     <input id="message-input" type="text" value="">
     <br>
-    <select id="speed" name="speed">
+    <select id="speed" name="speed" onchange="changeMessageSpeed(this)">
       <option value="1">default speed</option>
-      <option value="2">fast</option>
-      <option value="0.5">slow</option>
+      <option value="0.5">fast</option>
+      <option value="2">slow</option>
     </select>
     <br>
+    <select id="style" name="style" onchange="changeMessageStyle(this)">
+      <option value="style_default">default style</option>
+      <option value="style_Inversion">inversion</option>
+    </select>
     <br>
     <button type="button" onclick="closeSetting()">OK</button>
   </></>
