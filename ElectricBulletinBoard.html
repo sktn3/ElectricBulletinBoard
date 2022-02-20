@@ -150,6 +150,11 @@ input[type="text"]:focus {
   box-shadow: 0 0 15px #00ffff;
   border: 4px solid #00ffff;
 }
+input[type="text"]:invalid {
+  box-shadow: 0 0 15px red;
+  border: 4px solid red;
+  color: red;
+}
 
 
 /* for smart phone */
@@ -417,11 +422,11 @@ function changeMessage(){
 <body id="body" class="body1_style_default" onload="init()" onclick="openSetting()">
   <div id="loading"></div>
   <div class="loop_wrap">
-    <span id="message_1st" class="message message1_style_default message2_non_setting">１テスト１</span>
-    <span id="message_2st" class="message message1_style_default message2_non_setting">２テスト２</span>
+    <span id="message_1st" class="message message1_style_default message2_non_setting"></span>
+    <span id="message_2st" class="message message1_style_default message2_non_setting"></span>
   </div>
   <div id="setting-bg"><div id="setting">
-    <input id="message-input" type="text" placeholder="Two or more characters" value="">
+    <input id="message-input" type="text" pattern=".{2,}" placeholder="message" value="">
     <br>
     <select id="speed" name="speed" onchange="changeMessageSpeed(this)">
       <option value="1">default speed</option>
