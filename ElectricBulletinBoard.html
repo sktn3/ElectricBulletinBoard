@@ -27,7 +27,9 @@ body{
   margin: 0px;
   padding: 0px;
 
-  font-family: "cursive","sans-serif";
+  white-space: nowrap;
+
+  font-family: "Arial", "メイリオ";
 }
 .body_on_setting {
   /* 横向きの時は定義なし */
@@ -54,25 +56,24 @@ body{
   display: inline-block;
   white-space: nowrap;
 
-  font-size: 50vh;
+  font-size: 40vh;
   line-height: 70vh;
   margin: 15vh 0px 0px 0px
 
 }
 @keyframes loop1 {
-  0% { transform: translateX(130%); }
-  to { transform: translateX(-70%); }
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
-
 @keyframes loop2 {
-  0% { transform: translateX(10%); }
-  to { transform: translateX(-190%); }
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-200%); }
 }
 #message_1st {
   animation: loop1 10s linear infinite;
 }
 #message_2st {
-  animation: loop2 10s -10s linear infinite;
+  animation: loop2 10s -5s linear infinite;
 }
 
 /*** style_default ***/
@@ -165,7 +166,7 @@ input[type="text"]:invalid {
   .message{
     position: fixed;
 
-    font-size: 50vw;
+    font-size: 40vw;
     line-height: 70vw;
   }
   #setting-bg{
@@ -226,16 +227,17 @@ function setMessageSpeed(num){
     MessageSpeed = parseInt(num); //localStrage
   }
 
-  let sec =  parseInt(Math.ceil(num*getMessageLen()*0.8));
-  if( !sec ){ sec = 2; }
+  let sec =  parseInt(Math.ceil(getMessageLen()*1000*num*0.8));//msec
+  if( !sec ){ sec = 2000; } //msec
+  let sec_delay =  parseInt(Math.ceil(sec*0.5));//msec
 
   console.log("sec: "+sec);
   const msg1st = document.getElementById("message_1st");
   const msg2st = document.getElementById("message_2st");
   /* 1周するのにかかる時間 */
-  msg1st.style.animationDuration = sec+"s";
-  msg2st.style.animationDuration = sec+"s";
-  msg2st.style.animationDelay    = "-"+sec+"s";
+  msg1st.style.animationDuration = sec+"ms";
+  msg2st.style.animationDuration = sec+"ms";
+  msg2st.style.animationDelay    = "-"+sec_delay+"ms";
 }
 function changeMessageSpeed(obj){
   const idx = obj.selectedIndex;
@@ -289,9 +291,9 @@ function setMessageText(text){
   if(text.length > 2){
     const msg1st = document.getElementById("message_1st");
     const msg2st = document.getElementById("message_2st");
-    msg1st.innerHTML = text;
-    msg2st.innerHTML = text;
-    MessageText = text;
+    msg1st.innerHTML = text+"&nbsp;";
+    msg2st.innerHTML = text+"&nbsp";;
+    MessageText = text; //localStrage
     setMessageSpeed();
   }
 }
