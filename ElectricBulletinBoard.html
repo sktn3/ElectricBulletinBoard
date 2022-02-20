@@ -44,7 +44,7 @@ body{
   z-index: 1000;
 }
 
-#message {
+#message_1st {
   display: inline-block;
   white-space: nowrap;
 
@@ -144,7 +144,7 @@ input[type="text"]:focus {
   .message2_non_setting {
     top: 40vw;
   }
-  #message{
+  #message_1st{
     position: fixed;
 
     font-size: 50vw;
@@ -163,9 +163,9 @@ input[type="text"]:focus {
 
   <script type="text/javascript">
 /**************************************/
-var MessageText;
-var MessageSpeed;
-var MessageStyle;
+var MessageText = "";//localStrage
+var MessageSpeed = "";//localStrage
+var MessageStyle = "";//localStrage
 
 
 // スクロールを禁止にする関数
@@ -202,10 +202,12 @@ function init(){
 /**************************************/
 function setMessageSpeed(num){
   console.log("＞ setMessageSpeed()");
-  MessageSpeed = num;
-  const msg = document.getElementById("message");
+  MessageSpeed = parseInt(num); //localStrage
+  let sec =  parseInt(Math.ceil(num*getMessageLen()*0.5));
+  console.log("sec: "+sec);
+  const msg = document.getElementById("message_1st");
   /* 1周するのにかかる時間 */
-  msg.style.animationDuration = parseInt(num*getMessageLen())+"s";
+  msg.style.animationDuration = sec+"s";
 }
 function changeMessageSpeed(obj){
   const idx = obj.selectedIndex;
@@ -220,7 +222,7 @@ function changeMessageSpeed(obj){
 function setMessageStyle(name){
   console.log("＞ setMessageStyle()");
 
-  const msg = document.getElementById("message");
+  const msg = document.getElementById("message_1st");
   msg.className = msg.className.replace(/message1_[^\s]+/,"message1_"+name);
 
   const body = document.getElementById("body");
@@ -253,13 +255,16 @@ function hideLoading(){
 
 /**************************************/
 function setMessageText(text){
-  const msg = document.getElementById("message");
-  msg.innerHTML = text;
-  MessageText = text;
-  setMessageSpeed();
+  console.log("＞ setMessageText()");
+  if(text.length > 2){
+    const msg = document.getElementById("message_1st");
+    msg.innerHTML = text;
+    MessageText = text;
+    setMessageSpeed();
+  }
 }
 function getMessageLen(){
-  const msg = document.getElementById("message");
+  const msg = document.getElementById("message_1st");
   return msg.innerHTML.length;
 }
 
@@ -294,7 +299,7 @@ function addBodyRotate(){
     body.className += " body90";
   }
 
-  const msg = document.getElementById("message");
+  const msg = document.getElementById("message_1st");
   try{
     if(msg.className == ""){
       msg.className = "message2_non_setting";
@@ -314,7 +319,7 @@ function delBodyRotate(){
     body.className = body.className.replace(/body90/,"");
   }
 
-  const msg = document.getElementById("message");
+  const msg = document.getElementById("message_1st");
   try{
     if(msg.className == ""){
       msg.className = "message2_on_setting";
@@ -357,9 +362,9 @@ function changeMessage(){
 </head>
 <body id="body" class="body1_style_default" onload="init()" onclick="openSetting()">
   <div id="loading"></div>
-  <span id="message" class="message1_style_default message2_non_setting">テストメッセージが流れていきます～</span>
+  <span id="message_1st" class="message1_style_default message2_non_setting">テストメッセージが流れていきます～</span>
   <div id="setting-bg"><div id="setting">
-    <input id="message-input" type="text" value="">
+    <input id="message-input" type="text" placeholder="Two or more characters" value="">
     <br>
     <select id="speed" name="speed" onchange="changeMessageSpeed(this)">
       <option value="1">default speed</option>
