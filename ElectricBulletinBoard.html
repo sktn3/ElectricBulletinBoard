@@ -59,26 +59,20 @@ body{
   margin: 15vh 0px 0px 0px
 
 }
-@keyframes loop {
-  0% { transform: translateX(100%); }
-  to { transform: translateX(-100%); }
+@keyframes loop1 {
+  0% { transform: translateX(130%); }
+  to { transform: translateX(-70%); }
 }
 
 @keyframes loop2 {
-  0% { transform: translateX(0); }
-  to { transform: translateX(-200%); }
+  0% { transform: translateX(10%); }
+  to { transform: translateX(-190%); }
 }
 #message_1st {
-  animation: loop 10s linear infinite;
-  /* for debug
-  border: 3px solid blue;
-  */
+  animation: loop1 10s linear infinite;
 }
 #message_2st {
   animation: loop2 10s -10s linear infinite;
-  /* for debug
-  border: 3px solid red;
-  */
 }
 
 /*** style_default ***/
