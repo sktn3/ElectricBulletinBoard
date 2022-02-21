@@ -216,7 +216,7 @@ function init(){
   const speed = getMessageSpeedFromLocalStorage();
   if(speed){
     console.log("localStorage speed: "+speed);
-    MessageSpeed = parseFloat(speed);
+    MessageSpeed = parseFloat( parseFloat(speed) );
 
     //設定画面の設定値も変更
     let ary ={"1.0":0,"0.5":1,"2.0":2};
