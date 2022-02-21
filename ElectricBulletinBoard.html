@@ -307,13 +307,12 @@ function setMessageStyle(name){
   msg2st.className = msg2st.className.replace(/message1_[^\s]+/,"message1_"+name);
 
   const body = document.getElementById("body");
-  //console.log("body(1): "+ body.className);
   if(body.className == ""){
     body.className = "body1_"+name;
   }else{
     body.className = body.className.replace(/body1_[^\s]+/,"body1_"+name);
   }
-  //console.log("body(2): "+ body.className);
+  MessageStyle = name;
 }
 function changeMessageStyle(obj){
   console.log("＞ changeMessageStyle()");
