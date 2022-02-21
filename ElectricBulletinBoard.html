@@ -216,11 +216,16 @@ function init(){
   const speed = getMessageSpeedFromLocalStorage();
   if(speed){
     console.log("localStorage speed: "+speed);
-    MessageSpeed = parseFloat( parseFloat(speed) );
+    MessageSpeed = parseFloat( speed );
 
     //設定画面の設定値も変更
     let ary ={"1.0":0,"0.5":1,"2.0":2};
-    document.getElementById("speed").options[ ary[speed] ].selected = true;
+    try{
+      document.getElementById("speed").options[ ary[speed] ].selected = true;
+    }catch(e){
+      //デフォルト値
+      MessageSpeed = 1;
+    }
   }else{
     MessageSpeed = 1;
   }
@@ -233,7 +238,12 @@ function init(){
 
     //設定画面の設定値も変更
     let ary ={"style_default":0, "style_Inversion":1}
-    document.getElementById("speed").options[ ary[style] ].selected = true;
+    try{
+      document.getElementById("speed").options[ ary[style] ].selected = true;
+    }catch(e){
+      //デフォルト値
+      MessageStyle = "style_default";
+    }
   }else{
     MessageStyle = "style_default";
   }
