@@ -197,7 +197,13 @@ function disableScroll(event) {
 function init(){
   console.log("＞ init()");
 
-  MessageText = "メッセージ"; //localStrageに変更予定
+  const text = getMessageTextFromLocalStorage();
+  if(text != ""){
+    console.log("localStorage text: "+text);
+    MessageText = text;
+  }else{
+    MessageText = "メッセージ";
+  }
   setMessageText(MessageText);
 
   const msg_i = document.getElementById("message-input");
@@ -207,10 +213,30 @@ function init(){
   msg_i.addEventListener("blur",  stopChangingMessage, false);
   msg_i.addEventListener("keydown", startChangingMessage, false);
 
-  MessageSpeed = 1; // locasStrageに変更予定
+  const speed = getMessageSpeedFromLocalStorage();
+  if(speed != ""){
+    console.log("localStorage speed: "+speed);
+    MessageSpeed = parseFloat(speed);
+
+    //設定画面の設定値も変更
+    let ary ={"1":9,"0.5":1,"2":2};
+    document.getElementById("speed").options[ ary[speed] ].selected = true;
+  }else{
+    MessageSpeed = 1;
+  }
   setMessageSpeed();
 
-  MessageStyle = "style_default"; // locasStrageに変更予定
+  const style = getMessageStyleFromLocalStorage();
+  if(style != ""){
+    console.log("localStorage style: "+style);
+    MessageStyle = style;
+
+    //設定画面の設定値も変更
+    let ary ={"style_default":0, "style_Inversion":1}
+    document.getElementById("speed").options[ ary[style] ].selected = true;
+  }else{
+    MessageStyle = "style_default";
+  }
   setMessageStyle(MessageStyle);
 
   // スクロール禁止
@@ -218,6 +244,27 @@ function init(){
   document.addEventListener('mousewheel', disableScroll, { passive: false });
 
   hideLoading();
+}
+/**************************************/
+function setMessageTextToLocalStorage(str){
+  localStorage.setItem('EBB_MessageText', str);
+}
+function getMessageTextFromLocalStorage(){
+  return localStorage.getItem('EBB_MessageText');
+}
+
+function setMessageStyleToLocalStorage(str){
+  localStorage.setItem('EBB_MessageStyle', str);
+}
+function getMessageStyleFromLocalStorage(){
+  return localStorage.setItem('EBB_MessageStyle');
+}
+
+function setMessageSpeedToLocalStorage(str){
+  localStorage.setItem('EBB_MessageSpeed', str);
+}
+function getMessageSpeedFromLocalStorage(){
+  return localStorage.setItem('EBB_MessageSpeed');
 }
 
 /**************************************/
@@ -260,13 +307,13 @@ function setMessageStyle(name){
   msg2st.className = msg2st.className.replace(/message1_[^\s]+/,"message1_"+name);
 
   const body = document.getElementById("body");
-  console.log("body(1): "+ body.className);
+  //console.log("body(1): "+ body.className);
   if(body.className == ""){
     body.className = "body1_"+name;
   }else{
     body.className = body.className.replace(/body1_[^\s]+/,"body1_"+name);
   }
-  console.log("body(2): "+ body.className);
+  //console.log("body(2): "+ body.className);
 }
 function changeMessageStyle(obj){
   console.log("＞ changeMessageStyle()");
@@ -295,7 +342,7 @@ function setMessageText(text){
     const msg2st = document.getElementById("message_2st");
     msg1st.innerHTML = text+"&nbsp;";
     msg2st.innerHTML = text+"&nbsp";;
-    MessageText = text; //localStrage
+    MessageText = text;
     setMessageSpeed();
   }
 }
@@ -308,6 +355,10 @@ function getMessageLen(){
 /**************************************/
 function closeSetting(){
   console.log("＞ closeSetting()");
+
+  setMessageTextToLocalStorage(MessageText);
+  setMessageSpeedToLocalStorage(MessageSpeed);
+  setMessageStyleToLocalStorage(MessageStyle);
 
   //横向き用
   addBodyRotate();
