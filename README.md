@@ -1,4 +1,4 @@
-# ElectricBulletinBoard
+# ElectricBulletinBoard（未完成）
 Electric Bulletin Board 電光掲示板のように文字が流れるページを作る。
 
 適当に作ったロゴ<br>
