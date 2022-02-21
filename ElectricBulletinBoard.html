@@ -357,7 +357,7 @@ function closeSetting(){
   console.log("＞ closeSetting()");
 
   setMessageTextToLocalStorage(MessageText);
-  setMessageSpeedToLocalStorage(MessageSpeed);
+  setMessageSpeedToLocalStorage(MessageSpeed.toFixed(1));
   setMessageStyleToLocalStorage(MessageStyle);
 
   //横向き用
