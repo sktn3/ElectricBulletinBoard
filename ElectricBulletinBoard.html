@@ -239,7 +239,7 @@ function init(){
     //設定画面の設定値も変更
     let ary ={"style_default":0, "style_Inversion":1}
     try{
-      document.getElementById("speed").options[ ary[style] ].selected = true;
+      document.getElementById("style").options[ ary[style] ].selected = true;
     }catch(e){
       //デフォルト値
       MessageStyle = "style_default";
