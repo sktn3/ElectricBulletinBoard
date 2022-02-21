@@ -198,7 +198,7 @@ function init(){
   console.log("＞ init()");
 
   const text = getMessageTextFromLocalStorage();
-  if(text != ""){
+  if(text != "" && text != null){
     console.log("localStorage text: "+text);
     MessageText = text;
   }else{
@@ -214,7 +214,7 @@ function init(){
   msg_i.addEventListener("keydown", startChangingMessage, false);
 
   const speed = getMessageSpeedFromLocalStorage();
-  if(speed != ""){
+  if(speed != "" && speed != null){
     console.log("localStorage speed: "+speed);
     MessageSpeed = parseFloat(speed);
 
@@ -227,7 +227,7 @@ function init(){
   setMessageSpeed();
 
   const style = getMessageStyleFromLocalStorage();
-  if(style != ""){
+  if(style != "" && style != null){
     console.log("localStorage style: "+style);
     MessageStyle = style;
 
@@ -257,14 +257,14 @@ function setMessageStyleToLocalStorage(str){
   localStorage.setItem('EBB_MessageStyle', str);
 }
 function getMessageStyleFromLocalStorage(){
-  return localStorage.setItem('EBB_MessageStyle');
+  return localStorage.getItem('EBB_MessageStyle');
 }
 
 function setMessageSpeedToLocalStorage(str){
   localStorage.setItem('EBB_MessageSpeed', str);
 }
 function getMessageSpeedFromLocalStorage(){
-  return localStorage.setItem('EBB_MessageSpeed');
+  return localStorage.getItem('EBB_MessageSpeed');
 }
 
 /**************************************/
