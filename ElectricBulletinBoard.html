@@ -91,6 +91,28 @@ body{
 .message1_style_Inversion {
   color: white;
 }
+/*** style_ElectricBulletinBoard ***/
+.body1_style_ElectricBulletinBoard {
+  background-color: black;
+}
+.message1_style_ElectricBulletinBoard {
+  color: #FFB400;
+  font-weight: bold;
+  background: #333333;
+}
+.message1_style_ElectricBulletinBoard:before  {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+    transparent 0 1px, 
+    rgba(0, 0, 0, 0.7) 1px
+  );
+  background-size: 3px 3px;
+  content: '';
+}
 
 
 #setting-bg{
@@ -237,7 +259,7 @@ function init(){
     MessageStyle = style;
 
     //設定画面の設定値も変更
-    let ary ={"style_default":0, "style_Inversion":1}
+    let ary ={"style_default":0, "style_Inversion":1, "style_ElectricBulletinBoard":2}
     try{
       document.getElementById("style").options[ ary[style] ].selected = true;
     }catch(e){
@@ -495,6 +517,7 @@ function changeMessage(){
     <select id="style" name="style" onchange="changeMessageStyle(this)">
       <option value="style_default">default style</option>
       <option value="style_Inversion">inversion</option>
+      <option value="style_ElectricBulletinBoard">ElectricBulletinBoard</option>
     </select>
     <br>
     <button type="button" onclick="closeSetting()">OK</button>
