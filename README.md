@@ -1,6 +1,8 @@
 # ElectricBulletinBoard
 Electric Bulletin Board 電光掲示板のように文字が流れるページを作る。
 
+for iPhone, PC (html,css,javascript)
+
 適当に作ったロゴ<br>
 ![ロゴ](https://sktn3.github.io/ElectricBulletinBoard/icon.jpg "ロゴ")
 
