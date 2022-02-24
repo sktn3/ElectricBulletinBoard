@@ -231,18 +231,18 @@ var MessageStyle = "";//localStrage
 
 //ホーム画面からの起動か判別する
 //https://simplesimples.com/web/markup/javascript/%E3%83%9B%E3%83%BC%E3%83%A0%E7%94%BB%E9%9D%A2%E3%81%8B%E3%82%89%E3%81%AE%E8%B5%B7%E5%8B%95%E3%81%8B%E5%88%A4%E5%88%A5%E3%81%99%E3%82%8B/
-function checkStandAlone() {
-  let IsStandAlone;
+function isStandAlone() {
+  let check;
   switch (true) {
     // manifest.jsonのstart_urlと比較する もしくは iOSの場合
     case (-1 != location.hash.indexOf("#homescreen")):
     case navigator.standalone:
-      IsStandAlone = true;
+      check = true;
       break;
     default:
-    IsStandAlone = false;
+    check = false;
   }
-  return IsStandAlone;
+  return check;
 }
 
 
@@ -257,8 +257,8 @@ function init(){
   console.log("＞ init()");
 
   //ホーム画面からの起動か判別する
-  if( !checkStandAlone() ){
-    document.getElementById("memo").style.display = "inilne";
+  if( isStandAlone() ){
+    document.getElementById("memo").style.display = "none";
   }
 
   const text = getMessageTextFromLocalStorage();
