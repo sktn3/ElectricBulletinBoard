@@ -31,6 +31,16 @@ body{
 
   font-family: "Arial", "メイリオ";
 }
+
+#memo {
+  color: red;
+  font-size: 3vh;
+  font-weight: bold;
+  width: 100%;
+  white-space: break-spaces;
+}
+
+
 .body_on_setting {
   /* 横向きの時は定義なし */
 }
@@ -219,6 +229,23 @@ var MessageText = "";//localStrage
 var MessageSpeed = "";//localStrage
 var MessageStyle = "";//localStrage
 
+//ホーム画面からの起動か判別する
+//https://simplesimples.com/web/markup/javascript/%E3%83%9B%E3%83%BC%E3%83%A0%E7%94%BB%E9%9D%A2%E3%81%8B%E3%82%89%E3%81%AE%E8%B5%B7%E5%8B%95%E3%81%8B%E5%88%A4%E5%88%A5%E3%81%99%E3%82%8B/
+function checkStandAlone() {
+  let IsStandAlone;
+  switch (true) {
+    // manifest.jsonのstart_urlと比較する もしくは iOSの場合
+    case (-1 != location.hash.indexOf("#homescreen")):
+    case navigator.standalone:
+      IsStandAlone = true;
+      break;
+    default:
+    IsStandAlone = false;
+  }
+  return IsStandAlone;
+}
+
+
 
 // スクロールを禁止にする関数
 function disableScroll(event) {
@@ -228,6 +255,11 @@ function disableScroll(event) {
 // body onloadで実行する初期化関数
 function init(){
   console.log("＞ init()");
+
+  //ホーム画面からの起動か判別する
+  if( !checkStandAlone() ){
+    document.getElementById("memo").style.display = "inilne";
+  }
 
   const text = getMessageTextFromLocalStorage();
   if(text){
@@ -532,12 +564,14 @@ function changeMessage(){
     </select>
     <br>
     <select id="style" name="style" onchange="changeMessageStyle(this)">
-      <option value="style_default">default style</option>
-      <option value="style_Inversion">inversion</option>
-      <option value="style_ElectricBulletinBoard">ElectricBulletinBoard</option>
+      <option value="style_default">デフォルトスタイル</option>
+      <option value="style_Inversion">白黒反転</option>
+      <option value="style_ElectricBulletinBoard">電光掲示板風？</option>
     </select>
     <br>
     <button type="button" onclick="closeSetting()">OK</button>
+    <br>
+    <span id="memo">※「ホーム画面に追加」で全画面表示できます。</span>
   </></>
 </body>
 </html>
