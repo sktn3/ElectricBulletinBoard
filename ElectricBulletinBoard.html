@@ -181,8 +181,9 @@ input[type="text"]{
   transition: all .3s;
 }
 input[type="text"]:focus {
-  box-shadow: 0 0 15px #00ffff;
-  border: 4px solid #00ffff;
+  color: blue;
+  box-shadow: 0 0 15px blue;
+  border: 4px solid blue;
 }
 input[type="text"]:invalid {
   box-shadow: 0 0 15px red;
@@ -283,7 +284,7 @@ function init(){
     MessageSpeed = parseFloat( speed );
 
     //設定画面の設定値も変更
-    let ary ={"1.0":0,"0.5":1,"2.0":2};
+    let ary ={"1.2":0,"0.6":1,"2.0":2};
     try{
       document.getElementById("speed").options[ ary[speed] ].selected = true;
     }catch(e){
@@ -345,10 +346,10 @@ function getMessageSpeedFromLocalStorage(){
 /**************************************/
 function setMessageSpeed(num){
   console.log("＞ setMessageSpeed() num:"+num);
-  if(!num){
-    num = MessageSpeed;
+  if(num){
+    MessageSpeed = num;
   }else{
-    MessageSpeed = parseInt(num); //localStrage
+    num = MessageSpeed;
   }
 
   let sec =  parseInt(Math.ceil(getMessageLen()*1000*num*0.8));//msec
@@ -415,15 +416,15 @@ function setMessageText(text){
   if(text.length > 2){
     const msg1st = document.getElementById("message_1st");
     const msg2st = document.getElementById("message_2st");
-    msg1st.innerHTML = text+"&nbsp;";
-    msg2st.innerHTML = text+"&nbsp";;
+    msg1st.innerText = text;
+    msg1st.innerHTML += "&nbsp;";
+    msg2st.innerText = text;
+    msg2st.innerHTML += "&nbsp;";
     MessageText = text;
     setMessageSpeed();
   }
 }
 function getMessageLen(){
-  //const msg1st = document.getElementById("message_1st");
-  //return msg1st.innerHTML.length;
   return MessageText.length;
 }
 
@@ -555,11 +556,11 @@ function changeMessage(){
     <span id="message_2st" class="message message1_style_default message2_non_setting"></span>
   </div>
   <div id="setting-bg"><div id="setting">
-    <input id="message-input" type="text" pattern=".{2,}" placeholder="message" value="">
+    <input id="message-input" type="text" pattern=".{3,}" placeholder="２文字以上で。" value="">
     <br>
     <select id="speed" name="speed" onchange="changeMessageSpeed(this)">
-      <option value="1">default speed</option>
-      <option value="0.5">fast</option>
+      <option value="1.2">default speed</option>
+      <option value="0.6">fast</option>
       <option value="2">slow</option>
     </select>
     <br>
