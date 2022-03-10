@@ -1,5 +1,5 @@
 # ElectricBulletinBoard
-Electric Bulletin Board 電光掲示板のように文字が流れるページを作る。
+Electric Bulletin Board 電光掲示板のように文字が流れるアプリ／ページを作る。メッセージボード。
 
 for iPhone, PC (html,css,javascript)
 
